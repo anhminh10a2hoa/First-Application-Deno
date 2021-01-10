@@ -3,7 +3,7 @@ import Survey from "../models/Survey.ts";
 
 class SurveyController {
     async getAllForUsers(ctx: RouterContext){
-        ctx.response.body = []
+        ctx.response.body = await Survey.findById('1');
     }
     async getSingle(ctx: RouterContext){
         

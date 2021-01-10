@@ -13,6 +13,10 @@ export default class Survey {
         this.name = name,
         this.description = description
     }
+    static async findById(userId: string){
+        return await surveyCollection.find({userId});
+    }
+
     async create(){
         delete this.id;
         const {$oid} = await surveyCollection.insertOne(this);
