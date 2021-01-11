@@ -7,12 +7,13 @@ class AuthController {
     async login(ctx: RouterContext){
         const {value} = await ctx.request.body();
         const {email, password} = await value;
-        let user = await User.findOne({email});
         if(!email || !password){
             ctx.response.status = 422;
             ctx.response.body = { message: "Please provide email and password " }
             return;
         }
+        let user = await User.findOne({email});
+        console.log(user);
         if(!user){
             ctx.response.status = 422;
             ctx.response.body = { message: "The user doesn't existed" }

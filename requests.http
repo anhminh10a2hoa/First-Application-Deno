@@ -22,7 +22,7 @@ Content-Type: application/json
 GET http://localhost:8000/api/survey
 
 ### Get survey of user
-GET http://localhost:8000/api/survey/:id
+GET http://localhost:8000/api/survey/5ffa283900b687e80033b003
 
 ### Create survey
 POST http://localhost:8000/api/survey/

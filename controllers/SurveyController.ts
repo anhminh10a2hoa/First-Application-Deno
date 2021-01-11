@@ -3,10 +3,18 @@ import Survey from "../models/Survey.ts";
 
 class SurveyController {
     async getAllForUsers(ctx: RouterContext){
-        ctx.response.body = await Survey.findById('1');
+        const surveys = await Survey.findByUser('1');
+        console.log(surveys);
+        ctx.response.body = surveys;
     }
     async getSingle(ctx: RouterContext){
-        
+        const id = ctx.params.id!;
+        const survey = await Survey.findById(id);
+        if(!survey){
+            ctx.response.status = 404;
+            ctx.response.body = "Incorrect Id";
+        }
+        ctx.response.body = survey;
     }
     async create(ctx: RouterContext){
         const {value} = await ctx.request.body();
