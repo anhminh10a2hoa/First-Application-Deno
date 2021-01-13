@@ -1,7 +1,8 @@
 import { RouterContext } from "../deps.ts";
 import Survey from "../models/Survey.ts";
+import BaseSurveyController from "./BaseSurveyController.ts";
 
-class SurveyController {
+class SurveyController extends BaseSurveyController {
     async getAllForUsers(ctx: RouterContext){
         const surveys = await Survey.findByUser('1');
         console.log(surveys);
@@ -9,12 +10,11 @@ class SurveyController {
     }
     async getSingle(ctx: RouterContext){
         const id = ctx.params.id!;
-        const survey = await Survey.findById(id);
-        if(!survey){
-            ctx.response.status = 404;
-            ctx.response.body = "Incorrect Id";
+        console.log(id);
+        let survey: Survey | null = await this.findSurveyOrFail(id, ctx);
+        if (survey) {
+            ctx.response.body = survey;
         }
-        ctx.response.body = survey;
     }
     async create(ctx: RouterContext){
         const {value} = await ctx.request.body();
@@ -27,11 +27,25 @@ class SurveyController {
         ctx.response.body = survey;
 
     }
-    async update(ctx: RouterContext){
-        
+    async update(ctx: RouterContext) {
+        const id: string = ctx.params.id!;
+        const { value } = await ctx.request.body();
+        const { name, description } = await value;
+        const survey: Survey | null = await this.findSurveyOrFail(id, ctx);
+        if (survey) {
+          await survey.update({ name, description });
+          ctx.response.body = survey;
+        }
     }
+    
     async delete(ctx: RouterContext){
-        
+        const id = ctx.params.id!;
+        const survey = await this.findSurveyOrFail(id, ctx);
+        if(survey){
+            await survey.delete();
+            ctx.response.status = 204;
+            ctx.response.body = "Successful";
+        } 
     }
 }
 

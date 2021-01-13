@@ -11,9 +11,6 @@ export default class Survey extends BaseModel {
         public description: string,
     ){
         super();
-        this.userId = userId,
-        this.name = name,
-        this.description = description
     }
     static async findByUser(userId: string): Promise<Survey[]>{
         const surveys = await surveyCollection.find({userId});
@@ -22,10 +19,10 @@ export default class Survey extends BaseModel {
         )
     }
 
-    static async findById(surveyId: string){
-        const survey = await surveyCollection.findOne({_id: { $oid: surveyId }});
-        if(!survey){
-            return null;
+    static async findOne(id: string): Promise<Survey | null> {
+        const survey = await surveyCollection.findOne({ _id: { $oid: id } });
+        if (!survey) {
+          return null;
         }
         return Survey.prepare(survey);
     }
@@ -35,6 +32,24 @@ export default class Survey extends BaseModel {
         const {$oid} = await surveyCollection.insertOne(this);
         this.id = $oid;
         return this;
+    }
+
+    async update({ name, description }: { name: string; description: string }) {
+        const { modifiedCount } = await surveyCollection
+          .updateOne({ _id: { $oid: this.id } }, {
+            $set: { name, description },
+          });
+        console.log(modifiedCount);
+    
+        if (modifiedCount > 0) {
+          this.name = name;
+          this.description = description;
+        }
+        return this;
+    }
+
+    async delete(){
+        surveyCollection.deleteOne({ _id: { $oid: this.id } });
     }
 
     protected static prepare(data: any): Survey{

@@ -14,20 +14,18 @@ export default class User extends BaseModel {
         this.email = email;
         this.password = password;
     }
-    static async findOne(params: object) {
+    static async findOne(params: object): Promise<User | null> {
         const user = await userCollection.findOne(params);
-        return user;
+        if (!user) {
+          return null;
+        }
+        return new User(User.prepare(user));
     }
+    
     async save() {
-        delete this.id;
-        const { $oid } = await userCollection.insertOne(this);
-        this.id = $oid;
-        console.log(this.id);
-        return;
-    }
-    protected static prepare(data: any): User{
-        data = BaseModel.prepare(data);
-        const user = new User(data); 
-        return user;
+    delete this.id;
+    const { $oid } = await userCollection.insertOne(this);
+    this.id = $oid;
+    return this;
     }
 }
