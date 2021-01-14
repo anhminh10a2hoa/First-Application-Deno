@@ -8,7 +8,7 @@ Content-Type: application/json
     "password": "test"
 }
 
-@token = eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ0ZXN0QGVtYWlsLmNvbSIsImV4cCI6MTYxMDU3NTU0ODMwNn0.PxkzSVcMemZMzwn5rhOdeB4l4t2ERhCKK8_myLZLLd6dXRMnWojrvvsTaoiJFM2xCjmXaSZFbV_59lqQqf6Grg
+@token = eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ0ZXN0QGVtYWlsLmNvbSIsImV4cCI6MTYxMDY1ODk5MDkyNH0.T6P8uzFVNal-XuWZ0tcgvbEKu9vkIJpXnEuLAWfRCPNwowD-oRsgtRObdrdnJWlDPkKNgDL5ZBkWBGP2rFqbuw
 
 ### Login
 POST http://localhost:8000/api/login   
@@ -51,4 +51,58 @@ Authorization: Bearer {{token}}
 
 ### Delete survey
 DELETE http://localhost:8000/api/survey/5ffa4b3d00a78ca50028584d
+Authorization: Bearer {{token}}
+
+// Question
+### Get all question for survey
+GET http://localhost:8000/api/survey/6000a6b9004dfa5b00b97888/questions
+Authorization: Bearer {{token}}
+
+### Get question of user
+GET http://localhost:8000/api/question/6000ad7d00ecf73a00c7b3a5
+Authorization: Bearer {{token}}
+
+### Create question
+POST http://localhost:8000/api/question/6000a6b9004dfa5b00b97888
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+    "text": "How much you like Deno",
+    "type": "Choice",
+    "required": true,
+    "data": {
+        "multiple": false,
+        "answers": [
+            "I like it very much",
+            "I like it",
+            "I dont like it",
+            "I hate it"
+        ]
+    }
+}
+
+
+### Update question
+PUT http://localhost:8000/api/question/6000a938000326370043b3f6
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+    "text": "How much you like Deno",
+    "type": "Choice",
+    "required": true,
+    "data": {
+        "multiple": false,
+        "answers": [
+            "I like it very much",
+            "I like it",
+            "I dont like it",
+            "I hate it"
+        ]
+    }
+}
+
+### Delete question
+DELETE http://localhost:8000/api/question/6000a938000326370043b3f6
 Authorization: Bearer {{token}}
