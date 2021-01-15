@@ -50,6 +50,14 @@ export default class Question extends BaseModel {
     async delete(){
         questionCollection.deleteOne({ _id: { $oid: this.id } });
     }
+    
+    isText() {
+        return this.type === QuestionType.TEXT;
+    }
+
+    isChoice() {
+        return this.type === QuestionType.CHOICE;
+    }
 
     protected static prepare(data: any): Question{
         data = BaseModel.prepare(data);

@@ -8,7 +8,7 @@ Content-Type: application/json
     "password": "test"
 }
 
-@token = eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ0ZXN0QGVtYWlsLmNvbSIsImV4cCI6MTYxMDY1ODk5MDkyNH0.T6P8uzFVNal-XuWZ0tcgvbEKu9vkIJpXnEuLAWfRCPNwowD-oRsgtRObdrdnJWlDPkKNgDL5ZBkWBGP2rFqbuw
+@token = eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ0ZXN0QGVtYWlsLmNvbSIsImV4cCI6MTYxMDcxODk0MTI4NH0.iMcWkAPG-XKZ4b9E5kccveRJqilWt6KXUk_dlF17aWffKkxErBO2KgOPEzL0hPxSyCEjbczaRKyYgU7FduPbsA
 
 ### Login
 POST http://localhost:8000/api/login   
@@ -70,9 +70,9 @@ Authorization: Bearer {{token}}
 {
     "text": "How much you like Deno",
     "type": "Choice",
-    "required": true,
+    "required": false,
     "data": {
-        "multiple": false,
+        "multiple": true,
         "answers": [
             "I like it very much",
             "I like it",
@@ -104,5 +104,5 @@ Authorization: Bearer {{token}}
 }
 
 ### Delete question
-DELETE http://localhost:8000/api/question/6000a938000326370043b3f6
+DELETE http://localhost:8000/api/question/6000ad7d00ecf73a00c7b3a5
 Authorization: Bearer {{token}}
