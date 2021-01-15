@@ -12,6 +12,13 @@ export default class Survey extends BaseModel {
     ){
         super();
     }
+    static async findAll(): Promise<Survey[]>{
+        const surveys = await surveyCollection.find();
+        return surveys.map((survey: any) => 
+            Survey.prepare(survey)
+        )
+    }
+
     static async findByUser(userId: string): Promise<Survey[]>{
         const surveys = await surveyCollection.find({userId});
         return surveys.map((survey: any) => 
