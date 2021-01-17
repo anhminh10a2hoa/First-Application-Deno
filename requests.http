@@ -63,21 +63,21 @@ GET http://localhost:8000/api/question/6000ad7d00ecf73a00c7b3a5
 Authorization: Bearer {{token}}
 
 ### Create question
-POST http://localhost:8000/api/question/6000a6b9004dfa5b00b97888
+POST http://localhost:8000/api/question/60045d6200f1338200ae5179
 Content-Type: application/json
 Authorization: Bearer {{token}}
 
 {
-    "text": "How much you like Deno",
-    "type": "Choice",
-    "required": false,
+    "text": "How long have you learned Deno",
+    "type": "choice",
+    "required": true,
     "data": {
-        "multiple": true,
+        "multiple": false,
         "answers": [
-            "I like it very much",
-            "I like it",
-            "I dont like it",
-            "I hate it"
+            "1-3 months",
+            "3-6 months",
+            "6-12 months",
+            "> 1 year"
         ]
     }
 }

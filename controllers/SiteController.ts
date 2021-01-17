@@ -33,12 +33,13 @@ class SiteController {
           return;
         }
         const { value } = await ctx.request.body();
-        const formData: URLSearchParams = value as any;
+        const { formData } = await value;
+        console.log(formData);
         const questions: Question[] = await Question.findBySurvey(id);
         const answers: any = {};
         const errors: any = {}; 
         for (const question of questions) {
-          let value: string | string[] | null = formData.get(question.id!);
+          let value: string | string[] | null = formData!.get(question.id!);
           if (question.isChoice() && question.data.multiple) {
             value = formData.getAll(question.id!);
           }
